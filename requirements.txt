@@ -1,0 +1,4 @@
+click
+aiohttp
+rich
+numpy

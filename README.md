@@ -72,7 +72,7 @@ loadtest http://localhost:8000/docs --json-output
 
 **Async with aiohttp**: HTTP requests are I/O-bound (the CPU waits for network responses). Async handles thousands of concurrent waiting tasks on a single thread. Threads would work but use more memory and add context-switching overhead. `aiohttp` with `asyncio` is the standard for high-concurrency HTTP in Python.
 
-**Semaphore-controlled concurrency**: an `asyncio.Semaphore` gates how many requests are in-flight simultaneously. Without it, firing 1000 requests with only 50 available connections means 950 wait in a local queue — and the latency numbers become meaningless because they measure local queueing, not server response time.
+**Semaphore-controlled concurrency**: an `asyncio.Semaphore` gates how many requests are in-flight simultaneously. Without it, firing 1000 requests with only 50 available connections means 950 wait in a local queue and the latency numbers become meaningless because they measure local queueing, not server response time.
 
 **Percentile latency tracking**: averages hide problems. If 99 requests take 10ms and 1 takes 5000ms, the average (59ms) looks fine. P99 (5000ms) tells the truth. This tool reports P90, P95, and P99 because that's what production systems actually alert on.
 
